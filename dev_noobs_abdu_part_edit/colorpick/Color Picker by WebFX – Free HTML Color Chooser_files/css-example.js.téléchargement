@@ -1,0 +1,106 @@
+jQuery(function($) {
+	
+	FXTools.cssExample = {
+
+		defaultColors: ['black', 'white', '#e3e8f1'],
+
+		init: function() {
+
+			FXTools.cssExample.setSampleColors();
+			FXTools.cssExample.setCssExampleButtonClick();
+			FXTools.cssExample.setModalBackground('white');
+
+		},
+
+		instance: function() {
+
+			return $('.md-css-example #sample_colors');
+
+		},
+
+		setSampleColors : function() {
+
+			FXTools.cssExample.removeSampleColors();
+
+			var mainColor = FXTools.getMainColor();
+
+			for(var i = 0; i < FXTools.cssExample.defaultColors.length; i++) {
+
+				var item = FXTools.cssExample.defaultColors[i];
+
+				var liItem = jQuery('<li class="color"></li>');
+
+				liItem.css('background', item);
+
+				FXTools.cssExample.instance().append(liItem);
+
+			}
+
+			var liItem = jQuery('<li class="color"></li>');
+
+			liItem.css('background', mainColor);
+
+			FXTools.cssExample.instance().append(liItem);
+			FXTools.cssExample.setSampleColorsClick();
+			FXTools.cssExample.setModalColor(mainColor);
+
+		},
+
+		removeSampleColors: function() {
+
+			FXTools.cssExample.instance().empty();
+
+		},
+
+		setCssExampleButtonClick: function() {
+
+			$('.css-example-btn').click(FXTools.cssExample.cssExampleButtonClickHandler);
+
+		},
+
+		cssExampleButtonClickHandler: function(e) {
+
+			FXTools.cssExample.setSampleColors();
+			FXTools.cssExample.setModalBackground('white');
+			FXTools.cssExample.setCssSampleScript(FXTools.getMainColor());
+			e.preventDefault();
+		},
+
+		setSampleColorsClick: function() {
+				FXTools.cssExample.instance().find('li').off('click');
+				FXTools.cssExample.instance().find('li').click(FXTools.cssExample.sampleColorsClickEvent);
+		},
+
+		sampleColorsClickEvent: function(e) {
+			mainColor = FXTools.getMainColor();
+			currentColor = $(this).css('background');
+			FXTools.cssExample.setModalBackground(currentColor);
+			FXTools.cssExample.setModalColor(mainColor);
+			FXTools.cssExample.setCssSampleScript(mainColor);
+			if($(this).index() == 3) { //If it is the main color
+				FXTools.cssExample.setModalColor('white');
+				FXTools.cssExample.setCssSampleScript('white');
+			}
+			e.preventDefault();
+		},
+
+		setModalBackground: function(color) {
+
+			$('.md-css-example').find('.css-example-content').css('background', color);
+
+		},
+		setModalColor: function(color) {
+
+			$('.md-css-example').find('.css-example-content').css('color', color);
+			$('.md-css-example').find('.css-example-content').find('.md-close').css('color', 'white');
+		},
+		setCssSampleScript: function(color) {
+			$('.md-css-example').find('.css-example-content').find('.css_sample_main_color').html(color);
+			$('.md-css-example').find('.css-example-content').find('.css_sample').html('&lt;font style="color:'+color+';"&gt;Text here&lt;/font&gt;');
+		}
+
+	}
+
+	FXTools.cssExample.init();
+
+});

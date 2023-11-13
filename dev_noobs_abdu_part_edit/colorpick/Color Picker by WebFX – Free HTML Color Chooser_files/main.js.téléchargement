@@ -1,0 +1,354 @@
+/* ---------------------------------------------------------------------
+Global Js
+Target Browsers: All
+------------------------------------------------------------------------ */
+
+var FX = (function(FX, $) {
+
+
+    /**
+     * Doc Ready
+     */
+    $(function() {
+        // TODO: Add Modules needed for build. Remove unused modules
+    });
+
+
+    $(window).load(function() {
+        // TODO: Uncomment if using smooth scrolling anchors
+        // FX.SmoothAnchors.init();
+
+        // TODO: Uncomment if using scroll to top button
+        // window.onscroll = function() {FX.BackToTop.scrollFunction()};
+    });
+
+
+
+    /**
+     * Example Code Block - This should be removed
+     * @type {Object}
+     */
+    FX.CodeBlock = {
+    	init: function() {
+
+    	}
+    };
+
+    /**
+     * Display scroll-to-top after a certain amount of pixels (default 100px)
+     * @type {Object}
+     */
+    FX.BackToTop = {
+        scrollFunction : function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                document.getElementById("back-to-top").style.display = "block";
+            } else {
+                document.getElementById("back-to-top").style.display = "none";
+            }
+        },
+        topFunction : function() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    };
+    
+    
+    /**
+     * Mobile menu script for opening/closing menu and sub menus
+     * @type {Object}
+     */
+    FX.MobileMenu = {
+        init: function() {
+            $('.nav-primary li.menu-item-has-children > a').after('<span class="sub-menu-toggle icon-arrow-down hidden-md-up"></span>');
+
+			$('.sub-menu-toggle').click( function() {
+				var $this = $(this),
+					$parent = $this.closest("li"),
+					$wrap = $parent.find("> .sub-menu");
+				$wrap.toggleClass("js-toggled");
+				$this.toggleClass("js-toggled");
+			});
+        }
+    };
+    
+
+    /**
+     * Force External Links to open in new window.
+     * @type {Object}
+     */
+    FX.ExternalLinks = {
+        init: function() {
+            var siteUrlBase = FX.siteurl.replace(/^https?:\/\/((w){3})?/,'')
+
+            $('a[href*="//"]:not([href*="'+siteUrlBase+'"])')
+                .not('.ignore-external') // ignore class for excluding
+                .addClass('external')
+                .attr('target', '_blank')
+                .attr('rel', 'noopener');
+        }
+    };
+    
+    
+    /**
+     * Responsive Tables
+     * @type {Object}
+     */
+    FX.ResponsiveTables = {
+        init: function() {
+            
+            // Add wrappers to table
+            // - change ".page-content table" to appropriate class per project
+            $( ".page-content table" ).wrap( "<div class='table-wrap-outer' style='position: relative'><div class='table-wrap-inner' style='overflow: auto'></div></div>" );
+                                    
+            
+            // Make table draggable
+            var mx = 0;
+
+            $(".table-wrap-inner").on({
+                mousemove: function(e) {
+                    var mx2 = e.pageX - this.offsetLeft;
+                    if(mx) this.scrollLeft = this.sx + mx - mx2;
+                },
+                mousedown: function(e) {
+                    this.sx = this.scrollLeft;
+                    mx = e.pageX - this.offsetLeft;
+                }
+            });
+
+            $(document).on("mouseup", function(){
+                mx = 0;
+            });
+            
+            
+            // Add class if table is wider than parent
+            $('.table-wrap-outer').find('.table-wrap-inner table').each(function() {
+                var $table = $(this),
+                $table_outer = $table.closest('.table-wrap-outer');
+                if ($table.width() > $table_outer.width()) {
+                    $table_outer.addClass('js-table-is-overflowing');
+                    // - change ".page-content table" to appropriate class per project
+                    $( ".page-content table" ).before( "<div class='js-table-fade' style='position: absolute; right: 0; top: 0; height: 100%; width: 40px; background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1; )'></div>" );
+                }
+            });
+            
+        }
+    };
+
+
+    /**
+     * Custom Social Share icons open windows
+     * Generate URLs, place in a tag and use class - example: https://github.com/bradvin/social-share-urls
+     * @type {Object}
+     */
+    FX.Social = {
+        init: function() {
+            $(".js-social-share").on("click", this.open);
+        },
+
+        open: function(event) {
+          event.preventDefault();
+
+          FX.Social.windowPopup($(this).attr("href"), 500, 300);
+        },
+
+        windowPopup: function (url, width, height) {
+            var left = (screen.width / 2) - (width / 2),
+                top = (screen.height / 2) - (height / 2);
+
+            window.open(
+                url,
+                "",
+                "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=" + width + ",height=" + height + ",top=" + top + ",left=" + left
+            );
+        }
+    };
+
+    /**
+     * ImAHuman
+     * Hidden Captchas for forms
+     * @type {Object}
+     */
+    FX.ImAHuman = {
+        num: "0xFF9481",
+        forms: void 0,
+
+        init: function() {
+            this.setup();
+        },
+
+        setup: function() {
+            this.forms = document.getElementsByTagName("form");
+            this.bind();
+        },
+
+        bind: function() {
+            for (var i = 0; this.forms.length > i; i++) {
+                $(this.forms[i]).on("focus click", this.markAsHuman);
+            }
+        },
+
+        markAsHuman: function() {
+            $(this).find('.imahuman, [name="imahuman"]').attr("value", parseInt(FX.ImAHuman.num, 16));
+        }
+    };
+
+
+    /**
+     * Affix
+     * Fixes sticky items on scroll
+     * @type {Object}
+     */
+    FX.Affix = {
+        windowHeight: 0,
+
+        init: function() {
+            this.windowHeight = $(window).height();
+            this.bind();
+        },
+
+        bind: function(e) {
+            $(window).on('scroll', this.scroll);
+            $(window).on('resize', this.updateWindowHeight);
+        },
+
+        scroll: function(e) {
+            var scrolltop = $(this).scrollTop(),
+                fixPoint  = FX.Affix.windowHeight - $('#masthead').height();
+
+            if(scrolltop >= fixPoint) {
+                $('body').addClass('affix-head');
+            } else {
+                $('body').removeClass('affix-head');
+            }
+        },
+
+        updateWindowHeight: function(e) {
+            FX.Affix.windowHeight = $(window).height();
+        }
+    };
+
+
+
+    /**
+     * FX.Parallax
+     * Parallax effect for images
+     * @type {Object}
+     */
+    FX.Parallax = {
+        init: function() {
+            this.bind();
+        },
+
+        bind: function() {
+            $(window).scroll(this.scroll);
+        },
+
+        scroll: function(e) {
+            $('.js-parallax').each(function(){
+
+                var $this   = $(this),
+                    $speed  = $this.data('speed') || 6,
+                    $window = $(window),
+                    yPos    = -($window.scrollTop() / $speed),
+                    coords  = 'center '+ yPos + 'px';
+
+                $this.css({ backgroundPosition: coords });
+
+            });
+        }
+    };
+
+
+
+    /**
+     * FX.SmoothAnchors
+     * Smoothly Scroll to Anchor ID
+     * @type {Object}
+     */
+    FX.SmoothAnchors = {
+        init: function() {
+            this.hash = window.location.hash;
+
+            if ( this.hash != '' ) {
+                this.scrollToSmooth(this.hash);
+            }
+
+            this.bind();
+        },
+
+        bind: function() {
+            $('a[href^="#"]').on('click', $.proxy(this.onClick, this));
+        },
+
+        onClick: function(event) {
+            event.preventDefault;
+
+            var target = $(event.currentTarget).attr('href');
+
+            this.scrollToSmooth(target);
+        },
+
+        scrollToSmooth: function(target) {
+            var $target = $( target );
+            $target = ($target.length) ? $target : $( this.hash );
+
+            var headerHeight = 0; // TODO: if using sticky header change 0 to
+                                  // $('#page-header').outerHeight(true)
+
+            if ($target.length)
+            {
+                var targetOffset = $target.offset().top - headerHeight;
+                $('html,body').animate({scrollTop: targetOffset}, 600);
+
+                return false;
+            }
+        }
+    };
+
+
+
+    /**
+     * Tab Content
+     * @type {Object}
+     */
+     
+    /* HTML Formatting should follow this basic pattern:
+    
+    <ul class=“js-tabs”>
+	    <li><a href=“#tab-content-1”>Tab</a></li>
+	    <li><a href=“#tab-content-2”>Tab</a></li>
+	</ul>
+	
+	<div id="tab-content-1">
+	<!-- content -->
+	</div>
+	
+	<div id="tab-content-2">
+	<!-- content -->
+	</div>
+	*/
+
+    FX.Tabs = {
+        init: function() {
+            $('.js-tabs').on('click touchstart', 'a', this.switchTab)
+        },
+
+        switchTab: function(event) {
+            event.preventDefault();
+
+            var $this = $(this),
+                $tab  = $($this.attr('href'));
+
+            $this.parent()
+                 .addClass('active')
+                 .siblings()
+                 .removeClass('active');
+
+            $tab.addClass('active')
+                .siblings()
+                .removeClass('active');
+        }
+    };
+
+    return FX;
+}(FX || {}, jQuery));

@@ -1,0 +1,178 @@
+jQuery(function($) {
+	
+	FXTools.colorsPalette = {
+
+		colorCookiePrefix: "fxtools-color-",
+
+		maxColorsAllowed: 12,
+
+		init: function() {
+
+			FXTools.colorsPalette.setClearButton();
+			FXTools.colorsPalette.removeColors();
+			FXTools.colorsPalette.loadColorsSaved();
+
+		},
+
+		instance: function() {
+
+			return $('.saved_colors ul');
+
+		},
+
+		saveColor: function(HexString) {
+
+			var colorsSavedQty = FXTools.colorsPalette.getColorsSavedQty();
+
+			if(HexString.substring(0, 1) != "#") {
+
+				HexString = "#" + HexString;
+
+			}
+
+
+			if(colorsSavedQty <= FXTools.colorsPalette.maxColorsAllowed) {
+
+				var colorCookieName = FXTools.colorsPalette.colorCookiePrefix + (colorsSavedQty+1);
+
+				Cookies.set(colorCookieName, HexString, { expires: 365 });
+
+			}
+
+			FXTools.colorsPalette.removeColors();
+			FXTools.colorsPalette.loadColorsSaved();
+			FXTools.colorsPalette.setColorsCloseButton();
+
+		},
+
+		getColorsSavedQty: function() {
+
+			var cookiesFoundQty = 0;
+			for(var i = 1; i <= FXTools.colorsPalette.maxColorsAllowed; i++) {
+				var cookie = FXTools.colorsPalette.colorCookiePrefix + i;
+				var cookieFound = Cookies.get(cookie);
+				if(cookieFound != "undefined" && cookieFound !== undefined) {
+					cookiesFoundQty++;
+				}
+			}
+
+			return cookiesFoundQty;
+
+		},
+
+		loadColorsSaved: function() {
+
+			var cookiesFoundQty = 0;
+			for(var i = 1; i <= FXTools.colorsPalette.maxColorsAllowed; i++) {
+				var cookie = FXTools.colorsPalette.colorCookiePrefix + i;
+				var cookieFound = Cookies.get(cookie);
+				if(cookieFound != "undefined" && cookieFound !== undefined) {
+					var colorBox = $(FXTools.colorsPalette.instance().find('li')).get(i-1);
+					$(colorBox).attr('id', cookie);
+					$(colorBox).data('hex', cookieFound);
+					$(colorBox).html(cookieFound+'<a class="color_close_btn" href="#">close</a>');
+					$(colorBox).css('cssText', 'background:' +cookieFound+' !important;');
+				}
+			}
+
+			FXTools.colorsPalette.setColorsClickHandler();
+			FXTools.colorsPalette.setColorsCloseButton();
+
+		},
+
+		removeColors: function() {
+
+			FXTools.colorsPalette.instance().empty();
+			for(var i = 1; i <= FXTools.colorsPalette.maxColorsAllowed; i++) {
+				FXTools.colorsPalette.instance().append('<li></li>');
+			}
+
+		},
+
+		setColorsClickHandler: function() {
+
+			FXTools.colorsPalette.instance().find('li').off('click');
+			FXTools.colorsPalette.instance().find('li').click(FXTools.colorsPalette.onColorClickHandler);
+
+		},
+
+		onColorClickHandler: function() {
+
+			var currentId = $(this).attr('id');
+			if(currentId !== undefined) {
+				var currentValue = Cookies.get(currentId);
+				if(currentValue !== "undefined" && currentValue !== undefined && !$(this).hasClass('removeBtnClicked')) {
+					FXTools.setMainColor(currentValue);
+					FXTools.colorsShowCase.showColorsScheme(FXTools.getMainColor(), FXTools.getColorScheme());
+					FXTools.colorPicker.setColorCodes(currentValue);
+					FXTools.urlManager.addColorParameter(FXTools.getMainColor());
+
+				}
+				$(this).removeClass('removeBtnClicked');
+			}
+			
+
+		},
+
+		setColorsCloseButton: function() {
+
+			FXTools.colorsPalette.instance().find('li .color_close_btn').off('click');
+			FXTools.colorsPalette.instance().find('li .color_close_btn').click(FXTools.colorsPalette.onColorsRemoveButton);
+
+		},
+
+		onColorsRemoveButton: function(e) {
+
+			$(this).parent().addClass('removeBtnClicked');
+			$(this).parent().remove();
+			FXTools.colorsPalette.instance().append('<li></li>');
+			FXTools.colorsPalette.removeAllCookies();
+			FXTools.colorsPalette.saveExistingColors();
+			FXTools.colorsPalette.setColorsClickHandler();
+			FXTools.colorsPalette.removeColors();
+			FXTools.colorsPalette.loadColorsSaved();
+			e.preventDefault();
+
+		},
+
+		removeAllCookies: function() {
+
+			for(var i = 1; i <= FXTools.colorsPalette.maxColorsAllowed; i++) {
+				var cookie = FXTools.colorsPalette.colorCookiePrefix + i;
+				var cookieFound = Cookies.get(cookie);
+				if(cookieFound !== "undefined" && cookieFound !== undefined) {
+					Cookies.remove(cookie);
+				}
+			}
+
+		},
+
+		saveExistingColors: function() {
+			for(var i = 1; i <= FXTools.colorsPalette.maxColorsAllowed; i++) {
+				var colorCookieName = FXTools.colorsPalette.colorCookiePrefix + i;
+				var colorBox = $(FXTools.colorsPalette.instance().find('li')).get(i-1);
+				Cookies.set(colorCookieName, $(colorBox).data('hex'), { expires: 365 });
+			}
+		},
+
+		setClearButton: function() {
+
+			$('.btn_clear').click(FXTools.colorsPalette.onClearButton);
+
+		},
+
+		onClearButton: function(e) {
+
+			FXTools.colorsPalette.removeColors();
+			FXTools.colorsPalette.removeAllCookies();
+			FXTools.colorsPalette.loadColorsSaved();
+			e.preventDefault();
+
+
+		}
+
+	}
+
+	FXTools.colorsPalette.init();
+
+});

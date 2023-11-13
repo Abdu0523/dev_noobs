@@ -1,0 +1,25 @@
+jQuery(function($) {
+
+	FXTools.urlManager = {
+
+		init: function() {
+
+		},
+
+		addColorParameter : function(HEXString) {
+
+			if(HEXString.substring(0, 1) == "#") {
+
+				HEXString = HEXString.substring(1, HEXString.length);
+
+			}
+
+			HEXString = HEXString.toUpperCase();
+
+			history.pushState(null, null, '/web-design/color-picker/'+HEXString);
+
+		}
+
+	}
+
+});

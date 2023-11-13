@@ -1,0 +1,402 @@
+/*_________Body________*/
+
+
+body{
+    padding: 0px;
+    margin: 0px;
+    background-color: #fff;
+    color: #000;
+    
+}
+
+footer{
+    background-color:  #5c5f5f;
+    width: 100%;
+    height: 50px;
+    clear: left;
+    margin-top: 50px;
+}
+
+.copy{
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+}
+
+
+/*_________MENU-1________*/
+
+
+.div-1{
+    height: 50px;
+}
+
+.navigation{
+    height: 50px;
+    box-shadow: 0px 0px 10px #c2c0be;
+}
+
+
+.navigation ul{
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    background-color: #5c5f5f;
+}
+
+.navigation li{
+    width: 160px;
+    height: 50px;
+    border-left: 1px;
+    list-style-type: none;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    transition: 1.5s;
+}
+
+.navigation li:hover{
+    background-color: #b534ba;
+}
+
+.navigation #html-li{
+    background-color: rgb(158, 158, 160);
+}
+.navigation #html-li:hover{
+    background-color: #b534ba;
+}
+
+.for-li{
+    float: right;
+    width: 300px;
+    height: 47px;
+}
+
+.navigation .about-li{
+    float: left ;
+    width: 90px;
+    height: 50px;
+}
+
+
+.navigation .about-li:hover{
+    background-color:  rgb(158, 158, 160);
+}
+
+.navigation li a{
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.search-btn{
+    float: right;
+    width: 70px;
+}
+
+.btn{
+    float: left;
+    margin-top: 8px;
+    padding-right: 10px;
+    text-align: center;
+    line-height: 20px;
+}
+
+.navigation .contact{
+    width: 90px;
+}
+
+.navigation .contact:hover{
+    background-color:  rgb(158, 158, 160);
+}
+
+.navigation #contact{
+    background-color: rgb(158, 158, 160);
+}
+
+
+/*__________MENU-2________*/
+
+
+.div-2{
+    float: left;
+    padding: 0px;
+    margin: 0px 25px 5px 0px;
+    width: 20%;
+    height: 100%;
+    background-color: #fcfcfc;
+    border-right: solid 0.1em #c2c0be;
+
+    
+}
+
+.navigation-2{
+    height: 100%;
+    box-shadow: 0.5px 0.5px 5px #c2c0be;
+}
+
+.navigation-2 ul{
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+}
+
+.navigation-2 li{
+    width: 270px;
+    height: 20px;
+    list-style-type: none;
+    text-align: left;
+    line-height: 20px;
+    
+}
+
+.navigation-2 li:hover{
+    background-color: #B8B6BD;
+}
+
+.navigation-2 li a{
+    margin: 6px;
+    margin-left: 70px;
+    width: 270px;
+    display: block;
+    text-decoration: none;
+    color: #272727;
+}
+
+.div-chp{
+    width: 160px;
+    height: 100%;
+}
+
+.chp{
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    color: #272727;
+    font-family: 'imprint MT shadow';
+}
+/* ------contenue-------*/
+.div-contenu
+{ 
+    display:block;
+    position: relative;
+    margin:10px 160px 0px 10px;
+    border-right: solid 0.1em #c2c0be;
+}
+.section-1
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 150px 0px 30px 0px;
+    
+}
+/* ----bouton----*/
+.bnt-group
+{
+    display: block;
+    position: relative;
+    margin: 10px;
+    color: #fff;
+    margin-bottom: 50px;
+}
+ .precedent
+{
+    display:inline-block;
+    position: relative;
+    background-color: #5c5f5f;
+    
+}
+.suivant
+{
+    display: inline-flex;
+    position: relative;
+    float: right;
+    background-color: #5c5f5f;
+}
+.bnt-group input:hover
+{
+ background-color: blueviolet;
+}
+/*-------------section et description-------*/
+.section-2{
+    display:block;
+    position: relative;
+    clear: right;
+    margin:80px 0px 50px 0px;
+    
+}
+.description
+{
+    display: inline-block;
+    position :relative;
+    background-color:#5c5f5f;
+    width: 75%;
+    color: #fff;
+    text-align:justify;
+    padding: 20px 0px 0px 30px ;
+    height: 130px;
+    line-height: 25px;
+}
+/*------- section 3 et exemple----*/
+.section-3
+{
+display: block;
+position: relative;
+line-height:50px;
+color: #000;
+
+}
+
+.code1
+{
+    position: relative;
+    display:inline-block;
+    background-color: #5c5f5f;
+    color:#fff;
+    width: 75%;
+    height: 240px;
+}
+.code-exemple
+{
+    position : relative;   
+    display:block;
+    background-color: #fff;
+    color:#000;
+    margin:25px;
+    padding-bottom:0px
+}
+
+.exemple
+{
+    position: relative;
+    margin: 20px 0px 5px 10px;
+}
+.code-p
+{
+    position: relative;
+    padding: 0px 0px 0px px;
+    margin: 0px 0px -20px 20px;
+}
+.decaler
+{
+    position: relative;
+    padding: 0px 0px 0px 40px;
+    line-height: 0px;
+}
+/*-----------code-exemple1-----*/
+.code
+{
+    position: relative;
+    display:inline-block;
+    background-color: #5c5f5f;
+    color:#fff;
+    width: 56%;
+    height: 435px;
+    margin: 20px 0px 10px 0px;
+}
+.code-exemple1
+{
+    position : relative;   
+    display:block;
+background-color: #fff;
+    color:#000;
+    margin:25px;
+    padding:5px
+
+}
+.code-p
+{
+    position: relative;
+    padding: 0px 0px 0px 5px;
+    margin-bottom: 0px;
+}
+.image-png
+{
+    position: relative;
+    padding: 20px 0px 10px 18px;
+}
+/*-----------code-exemple1-----*/
+.code01
+{
+    position: relative;
+    display:inline-block;
+    background-color: #5c5f5f;
+    color:#fff;
+    width: 50%;
+    height: 190px;
+    margin: 20px 0px 10px 0px;
+}
+.code-exemple01
+{
+    position : relative;   
+    display:block;
+background-color: #fff;
+    color:#000;
+    margin:25px;
+    padding:5px
+
+}
+.image-png
+{
+    position: relative;
+    padding: 10px 0px 5px 10px;
+}
+/* -------------------nb---------------*/
+.nb
+{
+    position: relative;
+    display: inline-block;
+    margin: 20px 0px 0px 0px;
+    padding: 20px 0px 0px 20px;
+    color: #fff;
+    font-size: medium;
+    background-color: #5c5f5f;
+    width: 75%;
+    height: 80px;
+}
+ .nb1
+{
+    position: relative;
+    display: inline-block;
+    margin: 20px 0px 0px 0px;
+    padding: 20px 0px 0px 20px;
+    color: #fff;
+    font-size: medium;
+    background-color: #5c5f5f;
+    width: 75%;
+    height: 80px;
+}
+/*----------- section 4--------*/
+.section-4 
+{
+    position: relative;
+    display:block;
+    
+}
+.section-4 .div-section-4
+{
+    line-height: 30px;
+    font-size: 16px;
+}
+.section-4 .div-resumee
+{
+    display: inline-block;
+    position: relative;
+    line-height: 25px;
+    text-align: justify;
+    background-color:#5c5f5f;
+    color: #fff;
+    width: 75%;
+    padding: 10px;
+    
+}
+.ul-outils
+{
+    display: inline-block;
+    position: relative;
+    line-height: 25px;
+    width: 75%;
+    padding: 0px;  
+    list-style: none;
+}
